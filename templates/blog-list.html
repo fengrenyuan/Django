@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}My Blog{% endblock %}
+{% block content %}
+    {% for blog in blogs %}
+        <div class="blog">
+            <div class="blog-title">
+                <a href="{% url 'blog_get_detail' blog.id %}"><h1>{{ blog.title }}</h1></a>
+            </div>
+            <div class="blog-description">
+                <span class="created" style="color: #6aa84f;font-size:25px;">{{ blog.created|date:"Y-m-d H:i" }}</span>
+                <span class="category" style="color: #ff9900;font-size:25px;"> / </span>
+                <span class="category" style="color: #ff9900;font-size:25px;"><a href="{% url 'blog_get_blog' 1 %}?cat={{ blog.category.id }}">{{ blog.category.name }}</a></span>
+                <span class="category" style="color: #ff9900;font-size:25px;"> / </span>
+                <span class="author" style="color: #4a86e8;font-size:25px;"><a href="{% url 'blog_get_blog' 1 %}?author={{ blog.author }}">{{ blog.author }}</a></span>
+            </div>
+            <div class="blog-main">
+                <span style="font-size:20px">{{ blog.abstract|truncatewords:100 }}</span>
+                <HR align=left width=80% style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" SIZE=5 color=#987cb9>
+            </div>
+        </div>
+    {% endfor %}
+
+    <nav aria-lable="Page navigation">
+        <ul class="pagination">
+            {% if blogs.has_previous %}
+                <li>
+                    <a href="{% url 'blog_get_blogs' blogs.previous_page_number %}" aria-label="Previous">
+                        <span aria-hidden="true">Preview</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span aria-hidden="true">Priview</span>
+                </li>
+            {% endif %}
+
+            {% for p in pagerange %}
+                {% ifequal p currentpage %}
+                    <li class="active"><a href="{% url 'blog_get_blogs' p %}">{{ p }}</a></li>
+                {% else %}
+                    <li><a href="{% url 'blog_get_blogs' p %}">{{ p }}</a></li>
+                {% endifequal %}
+            {% endfor %}
+
+            {% if blogs.has_next %}
+                <li>
+                    <a href="{% url 'blog_get_blogs' blogs.next_page_number %}" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span aria-hidden="true">Next</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+{% endblock %}

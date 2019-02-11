@@ -1,0 +1,35 @@
+"""Fblog URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url, include
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+from blog.views import get_blogs, get_detail, get_blog, create_blog, search_blog, home
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', home),
+    url(r'^blog/(\d+)/list/$', get_blogs, name='blog_get_blogs'),
+    url(r'^blog/(\d+)/detail/$', get_detail, name='blog_get_detail'),
+    url(r'^blog/(\d+)/filter/$', get_blog, name='blog_get_blog'),
+    url(r'^blog/create/$', create_blog, name='blog_create_blog'),
+    url(r'^blog/(\d+)/search/$', search_blog, name='blog_search_blog'),
+    url(r'^mdeditor/', include('mdeditor.urls'))
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

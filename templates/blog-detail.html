@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}My Blog{% endblock %}
+{% block content %}
+    <div class="blog">
+        <div class="blog-description" style="margin-top:10px">
+            <span class="created" style="color: #6aa84f;font-size:25px;">{{ blog.created|date:"Y-m-d H:i" }}</span>
+            <span class="category" style="color: #ff9900;font-size:25px;">/</span>
+            <span class="category" style="color: #ff9900;font-size:25px;"><a href="{% url 'blog_get_blog' 1 %}?cat={{ blog.category.id }}">{{ blog.category.name }}</a></span>
+        </div>
+        <div class="blog-main" style="margin-top:10px;font-size:25px;">
+            {{ blog.content|safe }}
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <HR align=left width=30% size=10>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        {% for tag in blog.tags.all %}
+            <div class="col-md-1 tag text-center">
+                <a href="{% url 'blog_get_blog' 1 %}?tag={{ tag.id }}">{{ tag }}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <HR align=left width=20% size=10>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-md-12" style="padding-top: 20px;">
+            <h3>COMMENTS</h3>
+            {% for comment in comments %}
+                <div style="padding-top: 10px;">
+                    <span style="color: orange; font-size:20px; margin-right:10px">{{ comment.created|date:"d/m/Y" }}</span> <span style="font-weight:bold; font-size:20px;"> From {{ comment.name }}</span>
+                </div>
+                <div class="blog-main">
+                    {{ comment.content }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-12">
+            <HR align=left width=20% size=10>
+        </div>
+
+        <div class="col-md-12">
+                <h3>LEAVE COMMENTS</h3>
+                <form aciton="{% url 'blog_get_detail' blog.id %}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="input-filed" style="padding-top: 10px;">
+                            {% if forloop.counter == 1 %}
+                                <span style="margin-right:10px;"><img src="/static/bootstrap/icon/user_name.png" width="27" height="27"></span>{{ field }}
+                            {% endif %}
+                            {% if forloop.counter == 2 %}
+                                <span style="margin-right:10px;"><img src="/static/bootstrap/icon/user_email.png" width="27" height="27"></span>{{ field }}
+                            {% endif %}
+                            {% if forloop.counter == 3 %}
+                                <span style="margin-right:10px;"><img src="/static/bootstrap/icon/user_comment.png" width="27" height="27"></span>{{ field }}
+                            {% endif %}
+                        </div>
+                        <div class="error" style="color: red;">
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" style="margin-top:10px; margin-bottom:10px; margin-left:90px;">Submit</button>
+                </form>
+        </div>
+    </div>
+{% endblock %}

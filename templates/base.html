@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- highlight.js -->
+    <link href="/static/bootstrap/css/sublime.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/highlight.js"></script>
+    <script src="/static/bootstrap/js/highlightjs-line-numbers.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>hljs.initLineNumbersOnLoad();</script>
+
+    <!-- Custom styles for this template -->
+    <link href="/static/bootstrap/css/blog.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container-fluid" style="background-image:url('/static/bootstrap/image/back.png');">
+
+      <div class="blog-header text-center">
+        <br/>
+        <h1 class="blog-title">Blog of Fengrenyuan</h1>
+        <p class="lead blog-description">We have falled in love for {{ day }} days.</p>
+        <br/>
+      </div>
+
+    </div><!-- /.container -->
+
+    <div class="blog-masthead">
+      <div class="container-fluid">
+        <nav class="blog-nav">
+            <div class="navbar-header">
+                <a class="blog-nav-item" style="color:white;" href="{% url 'blog_get_blogs' 1 %}">Fengrenyuan</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a class="blog-nav-item active" href="#">Home</a></li>
+                    <li><a class="blog-nav-item" href="#">New features</a></li>
+                    <li><a class="blog-nav-item" href="#">Press</a></li>
+                    <li><a class="blog-nav-item" href="#">New hires</a></li>
+                    <li><a class="blog-nav-item" href="#">About</a></li>
+                </ul>
+            </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+           <div class="col-md-2">
+           </div>
+
+           <div class="col-md-2">
+               <div class="row-fluid">
+                   <div class="blog-title text-center">
+                       <h1 style="color:#083F47">ABOUT</h1>
+                       <img class="img-circle image-responsive" src="/static/bootstrap/image/back.png" alt="portrait" width="150" height="150" />
+                       <div class="text-center" style="margin-top:10px;">
+                           <h4 style="color:#083F47">This is the self-introduction of me</h4>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="row-fluid">
+                   <div class="blog-title text-center col-md-12">
+                       <h1 style="color:#083F47">SEARCH</h1>
+                   </div>
+               </div>
+
+               <div class="row-fluid">
+                   <div class="text-center">
+                       <form action="{% url 'blog_search_blog' 1 %}" method="get">
+                           <div class="col-md-8"><input type="text" name="search" /></div>
+                           <div class="col-md-4"><input type="image" src="/static/bootstrap/icon/search.png" width="30" height="30" /></div>
+                       </form>
+                   </div>
+               </div>
+
+               <div class="row-fluid">
+                   <div class="col-md-12">
+                       <HR align=center width=100% SIZE=0 color=#000000>
+                   </div>
+               </div>
+
+               <div class="row-fluid">
+                   <div class="blog-title">
+                       <div class="text-center">
+                           <h1 style="padding-bottom:20px;color:083F47;">CATEGORIES</h1>
+                       </div>
+                       {% for category in categorys %}
+                           <a href="{% url 'blog_get_blog' 1 %}?cat={{ category.id }}">
+                               <div class="col-md-8 text-left">
+                                   <h4 style="color:#083F47">{{ category.name }}</h4>
+                               </div>
+                               <div class="col-md-4 text-right">
+                                   <h4 style="color:#083F47">({{ category.num_blogs }})</h4>
+                               </div>
+                           </a>
+                           <div class="col-md-12">
+                               <HR align=left width=80% style="FILTER: alpha(opacity=100,finishopacity=0,style=1,color=#987cb9)">
+                           </div>
+                       {% endfor %}
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+
+    <footer class="blog-footer">
+      <div class="text-center">
+        <p>SUBSCRIBE & CONTACT</p>
+        <a href="https://weibo.com/727007383?is_all=1" target="view_window"><img src="/static/bootstrap/icon/sina.png" width="35" height="35" /></a>
+        <a href="https://github.com/fengrenyuan?tab=repositories" target="view_window"><img src="/static/bootstrap/icon/github.png" width="35" height="35" /></a>
+        <a href="mailto:727007383@qq.com" target="view_window"><img src="/static/bootstrap/icon/mail.png" width="30" height="30" /></a>
+      </div>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

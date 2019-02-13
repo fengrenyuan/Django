@@ -79,7 +79,7 @@
                </div>
 
                <div class="row-fluid">
-                   <div class="blog-title text-center col-md-12">
+                   <div class="blog-title text-center col-md-12" style="margin-bottom: 5px;">
                        <h1 style="color:#083F47">SEARCH</h1>
                    </div>
                </div>
@@ -95,16 +95,17 @@
 
                <div class="row-fluid">
                    <div class="col-md-12">
-                       <HR align=center width=100% SIZE=0 color=#000000>
+                       <HR style="border-width:0px;" />
                    </div>
                </div>
 
                <div class="row-fluid">
                    <div class="blog-title">
                        <div class="text-center">
-                           <h1 style="padding-bottom:20px;color:083F47;">CATEGORIES</h1>
+                           <h1 style="padding-bottom:20px;color:#083F47;">CATEGORIES</h1>
                        </div>
                        {% for category in categorys %}
+                           <div class="col-md-12">
                            <a href="{% url 'blog_get_blog' 1 %}?cat={{ category.id }}">
                                <div class="col-md-8 text-left">
                                    <h4 style="color:#083F47">{{ category.name }}</h4>
@@ -113,8 +114,9 @@
                                    <h4 style="color:#083F47">({{ category.num_blogs }})</h4>
                                </div>
                            </a>
+                           </div>
                            <div class="col-md-12">
-                               <HR align=left width=80% style="FILTER: alpha(opacity=100,finishopacity=0,style=1,color=#987cb9)">
+                               <HR style="border-width:2px;" />
                            </div>
                        {% endfor %}
                    </div>

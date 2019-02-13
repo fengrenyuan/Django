@@ -15,8 +15,8 @@
                 <span class="author" style="color: #4a86e8;font-size:25px;"><a href="{% url 'blog_get_blog' 1 %}?author={{ blog.author }}">{{ blog.author }}</a></span>
             </div>
             <div class="blog-main">
-                <span style="font-size:20px">{{ blog.abstract|truncatewords:100 }}</span>
-                <HR align=left width=80% style="FILTER: alpha(opacity=100,finishopacity=0,style=1)" SIZE=5 color=#987cb9>
+                <span style="font-size:22px">{{ blog.abstract|truncatewords:100 }}</span>
+                <hr width="100%" style="border-width:2px;" />
             </div>
         </div>
     {% endfor %}
